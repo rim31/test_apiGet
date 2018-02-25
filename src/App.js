@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-// import Grid from './components/Grid.js';
+// import Cards from './components/Cards.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Grid from './components/Grid.js';
 // import ApiGet from './components/ApiGet.js';
 
 class App extends Component {
@@ -12,8 +14,7 @@ class App extends Component {
       data : [],
       now : '',
       allCharacters : [],
-      //pb to concatenate url/extension, if no image ?!
-      imgCharacters : '',
+      myHeros : '',
       API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5',
       API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d',
     };
@@ -22,26 +23,34 @@ class App extends Component {
 handleSelect(selectedKey) {
   this.setState({activeKey: selectedKey})
   console.log(selectedKey);
+  const self = this;
+  self.interval = setInterval(function() {
+    self.setState({
+      now: new Date(),
+    });
+  }, 1000);
+   console.log(this.state.now)
+   var myTimestamp = new Date().getTime()
+   // var API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5';
+   // var API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d';
+   var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
+   var crypto = require('crypto');
+   var myHash = crypto.createHash('md5').update(myData).digest("hex");
+   var url = 'http://gateway.marvel.com/v1/public/characters/'+selectedKey+'?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
+   // var url = 'http://gateway.marvel.com/v1/public/characters?apikey=298bab46381a6daaaee19aa5c8cafea5&ts=1519495930639&hash=587d365a1ab2169a5b5034160f54811c';
+   console.log(url)
+   fetch(url)
+   .then((Response)=>Response.json())
+   .then((myResponse) => {
+     console.log(myResponse.data.results)
+     this.setState({
+       myHeros:myResponse.data.results
+     })
+   });
+   console.log(this.state.myHeros)
+   // alert(this.state.myHeros.name)
+   return(url);
 }
-  // myButton() {
-  //   console.log('coucou')
-  //   const self = this;
-  //   self.interval = setInterval(function() {
-  //     self.setState({
-  //       now: new Date(),
-  //     });
-  //   }, 1000);
-  //    console.log(this.state.now)
-  //    var myTimestamp = new Date().getTime()
-  //    console.log(myTimestamp)
-  //    console.log(myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC)
-  //    var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
-  //    var crypto = require('crypto');
-  //    var myHash = crypto.createHash('md5').update(myData).digest("hex");
-  //    console.log(myHash)
-  //    var url = 'http://gateway.marvel.com/v1/public/characters?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-  //    console.log(url)
-  //   }
 
   getAllCharacters() {
     const self = this;
@@ -76,52 +85,78 @@ handleSelect(selectedKey) {
   // var url = getAllCharacters()
   // fetch(url)
   componentDidMount() {
-    fetch('https://facebook.github.io/react-native/movies.json')
-    .then((Response)=>Response.json())
-    .then((myResponse) => {
-      console.log(myResponse)
-      this.setState({
-        data:myResponse.movies
-        // allCharacters:myResponse.data.results.id
-      })
-    });
+    // fetch('https://facebook.github.io/react-native/movies.json')
+    // .then((Response)=>Response.json())
+    // .then((myResponse) => {
+    //   // console.log(myResponse)
+    //   this.setState({
+    //     data:myResponse.movies
+    //     // allCharacters:myResponse.data.results.id
+    //   })
+    // });
+    const self = this;
+    self.interval = setInterval(function() {
+      self.setState({
+        now: new Date(),
+      });
+    }, 1000);
+     console.log(this.state.now)
+     var myTimestamp = new Date().getTime()
+     // var API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5';
+     // var API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d';
+     var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
+     var crypto = require('crypto');
+     var myHash = crypto.createHash('md5').update(myData).digest("hex");
+     var url = 'http://gateway.marvel.com/v1/public/characters?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
+     // var url = 'http://gateway.marvel.com/v1/public/characters?apikey=298bab46381a6daaaee19aa5c8cafea5&ts=1519495930639&hash=587d365a1ab2169a5b5034160f54811c';
+     console.log(url)
+     fetch(url)
+     .then((Response)=>Response.json())
+     .then((myResponse) => {
+       console.log(myResponse.data.results)
+       this.setState({
+         data:myResponse.data.results
+       })
+     });
   }
   render() {
     return (
-      <div className="App">
+      <MuiThemeProvider className="App">
         <header className="App-header">
           <h1 className="App-title">Welcome Super Heros</h1>
         </header>
-        <p className="App-intro"> Hello BG</p>
-        {/*<button  onClick={() => {this.myButton()}}>
-             Hash
-         </button>*/}
+        {/*} <Cards allCharacters={this.state.allCharacters}/>*/}
         <button  onClick={() => {this.getAllCharacters()}}>
             Login
         </button>
-        <div>
+        <Grid allCharacters={this.state.allCharacters}/>
+        <div className="flex-container">
           {
             this.state.data.map((dynamicData, key) =>
-            <div key={key}>
-                {dynamicData.title}
+            <div key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
+                <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension}/>
+                <div>
+                  <p>{dynamicData.name}</p>
+                </div>
             </div>)
           }
           {/*<Grid />
           <ApiGet />*/}
-
         </div>
+
         <div className="flex-container">
         {
           this.state.allCharacters.map((dynamicData, key) =>
           <div key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
               <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension}/>
               <div>
-                <span>{dynamicData.name}</span>
+                <p>{dynamicData.name}</p>
+                <Grid allCharacters={this.state.allCharacters}/>
               </div>
           </div>)
         }
       </div>
-      </div>
+    </MuiThemeProvider>
     );
   }
 }

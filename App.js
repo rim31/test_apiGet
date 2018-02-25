@@ -31,9 +31,9 @@ class App extends Component {
      console.log(myHash)
     //  http://gateway.marvel.com/v1/public/comics?apikey=298bab46381a6daaaee19aa5c8cafea5&ts=1519494160&hash=321
     // http://gateway.marvel.com/v1/public/comics?apikey=298bab46381a6daaaee19aa5c8cafea5&ts=1519495930639&hash=587d365a1ab2169a5b5034160f54811c
-  
+
   //http://gateway.marvel.com/v1/public/characters?apikey=298bab46381a6daaaee19aa5c8cafea5&ts=1519495930639&hash=587d365a1ab2169a5b5034160f54811c
-  
+
 //http://gateway.marvel.com/v1/public/characters/1011334?apikey=298bab46381a6daaaee19aa5c8cafea5&ts=1519495930639&hash=587d365a1ab2169a5b5034160f54811c
 }
   // componentDidMount() is invoked immediately after a component is mounted. Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
@@ -59,7 +59,7 @@ class App extends Component {
         </button>
         <div>
           {
-            this.state.data.map((dynamicData, key) => 
+            this.state.data.map((dynamicData, key) =>
             <div key={key}>
                 {dynamicData.title}
             </div>)
