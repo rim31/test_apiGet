@@ -6,7 +6,9 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.handleSelect = this.handleSelect.bind(this);
     this.state = {
+      activeKey : 1,
       data : [],
       now : '',
       allCharacters : [],
@@ -14,27 +16,32 @@ class App extends Component {
       imgCharacters : '',
       API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5',
       API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d',
-    }
+    };
   }
-  myButton() {
-    console.log('coucou')
-    const self = this;
-    self.interval = setInterval(function() {
-      self.setState({
-        now: new Date(),
-      });
-    }, 1000);
-     console.log(this.state.now)
-     var myTimestamp = new Date().getTime()
-     console.log(myTimestamp)
-     console.log(myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC)
-     var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
-     var crypto = require('crypto');
-     var myHash = crypto.createHash('md5').update(myData).digest("hex");
-     console.log(myHash)
-     var url = 'http://gateway.marvel.com/v1/public/characters?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-     console.log(url)
-    }
+
+handleSelect(selectedKey) {
+  this.setState({activeKey: selectedKey})
+  console.log(selectedKey);
+}
+  // myButton() {
+  //   console.log('coucou')
+  //   const self = this;
+  //   self.interval = setInterval(function() {
+  //     self.setState({
+  //       now: new Date(),
+  //     });
+  //   }, 1000);
+  //    console.log(this.state.now)
+  //    var myTimestamp = new Date().getTime()
+  //    console.log(myTimestamp)
+  //    console.log(myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC)
+  //    var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
+  //    var crypto = require('crypto');
+  //    var myHash = crypto.createHash('md5').update(myData).digest("hex");
+  //    console.log(myHash)
+  //    var url = 'http://gateway.marvel.com/v1/public/characters?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
+  //    console.log(url)
+  //   }
 
   getAllCharacters() {
     const self = this;
@@ -86,9 +93,9 @@ class App extends Component {
           <h1 className="App-title">Welcome Super Heros</h1>
         </header>
         <p className="App-intro"> Hello BG</p>
-        <button  onClick={() => {this.myButton()}}>
+        {/*<button  onClick={() => {this.myButton()}}>
              Hash
-         </button>
+         </button>*/}
         <button  onClick={() => {this.getAllCharacters()}}>
             Login
         </button>
@@ -103,12 +110,14 @@ class App extends Component {
           <ApiGet />*/}
 
         </div>
-        <div>
+        <div className="flex-container">
         {
           this.state.allCharacters.map((dynamicData, key) =>
-          <div key={key} id={dynamicData.id}>
-              {dynamicData.name}
-              <img src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension}/>
+          <div key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
+              <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension}/>
+              <div>
+                <span>{dynamicData.name}</span>
+              </div>
           </div>)
         }
       </div>
