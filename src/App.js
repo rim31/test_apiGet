@@ -7,9 +7,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:[],
-      now:'',
-      allCharacters:'',
+      data : [],
+      now : '',
+      allCharacters : [],
+      //pb to concatenate url/extension, if no image ?!
+      imgCharacters : '',
       API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5',
       API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d',
     }
@@ -55,9 +57,9 @@ class App extends Component {
      .then((Response)=>Response.json())
      .then((myResponse) => {
        console.log(myResponse.data.results)
-       // this.setState({
-       //   allCharacters:myResponse
-       // })
+       this.setState({
+         allCharacters:myResponse.data.results
+       })
      });
      console.log(this.state.allCharacters)
      return(url);
@@ -99,7 +101,17 @@ class App extends Component {
           }
           {/*<Grid />
           <ApiGet />*/}
+
         </div>
+        <div>
+        {
+          this.state.allCharacters.map((dynamicData, key) =>
+          <div key={key} id={dynamicData.id}>
+              {dynamicData.name}
+              <img src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension}/>
+          </div>)
+        }
+      </div>
       </div>
     );
   }
