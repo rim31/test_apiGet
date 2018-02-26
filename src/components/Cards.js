@@ -20,7 +20,7 @@ export default class Grid extends React.Component {
 
       <div className="sectionHeros">
     		<div className="container">
-                {/*}<img src="https://cdn.intra.42.fr/users/oseng.jpg"/>*/}
+                <img src="https://cdn.intra.42.fr/users/oseng.jpg" alt=''/>
                 <p>Photo de super heros</p>
                 <div>
                 {

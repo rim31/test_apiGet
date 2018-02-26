@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-// import Cards from './components/Cards.js';
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Cards from './components/Cards.js';
 import Grid from './components/Grid.js';
+import Main from './components/Main.js';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import ApiGet from './components/ApiGet.js';
 
 class App extends Component {
@@ -16,11 +17,14 @@ class App extends Component {
       allCharacters : [],
       myHeros : '',
       tmp: [],
+      //not sure it's safe ?
       API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5',
       API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d',
     };
   }
 
+
+//function click on image of super heros then display detail
 handleSelect(selectedKey) {
   this.setState({activeKey: selectedKey})
   // console.log(selectedKey);
@@ -47,7 +51,8 @@ handleSelect(selectedKey) {
    });
    if (this.state.myHeros) {
     console.log(this.state.myHeros);
-    alert(this.state.myHeros.id + ' ' + this.state.myHeros.name);
+    alert(this.state.myHeros.id + ' ' + this.state.myHeros.name + '\n comics dispos : ' + this.state.myHeros.comics.available );
+    return <Cards />;
   };
 }
 
@@ -104,10 +109,8 @@ handleSelect(selectedKey) {
   render() {
     return (
       <div className="App">
-        {/*} <Cards allCharacters={this.state.allCharacters}/>
-        <button  onClick={() => {this.getAllCharacters()}}>
-            Login
-        </button>*/}
+      <Main />
+        <Cards allCharacters={this.state.allCharacters}/>
         <Grid allCharacters={this.state.allCharacters}/>
         <div className="flex-container">
           {
@@ -119,22 +122,7 @@ handleSelect(selectedKey) {
                 </div>
             </div>)
           }
-          {/*<Grid />
-          <ApiGet />*/}
         </div>
-
-        {/*<div className="flex-container">
-        {
-          this.state.allCharacters.map((dynamicData, key) =>
-          <div key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
-              <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension} alt=''/>
-              <div>
-                <p>{dynamicData.name}</p>
-                <Grid allCharacters={this.state.allCharacters}/>
-              </div>
-          </div>)
-        }
-      </div>*/}
     </div>
     );
   }
