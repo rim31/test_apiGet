@@ -16,7 +16,6 @@ class App extends Component {
       now : '',
       allCharacters : [],
       myHeros : '',
-      tmp: [],
       //not sure it's safe ?
       API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5',
       API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d',
@@ -50,9 +49,9 @@ handleSelect(selectedKey) {
      })
    });
    if (this.state.myHeros) {
-    console.log(this.state.myHeros);
+    // console.log(this.state.myHeros);
     alert(this.state.myHeros.id + ' ' + this.state.myHeros.name + '\n comics dispos : ' + this.state.myHeros.comics.available );
-    return <Cards />;
+    return <Cards myHeros={this.state.myHeros}/>;
   };
 }
 
@@ -118,7 +117,9 @@ handleSelect(selectedKey) {
             <div className="herosCard" key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
                 <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension} alt=''/>
                 <div>
+                <a href="/cards">
                   <p>{dynamicData.name}</p>
+                </a>
                 </div>
             </div>)
           }

@@ -22,6 +22,7 @@ export default class Cards extends React.Component {
 
       <div className="sectionHeros">
     		<div className="container">
+                  <a href="/">home</a>
                 {/*}<img src="https://cdn.intra.42.fr/users/oseng.jpg" alt=''/>*/}
                 <p>Photo de super heros</p>
                 <img className='imageGrid' src={this.state.myJson[0].thumbnail.path + '.' + this.state.myJson[0].thumbnail.extension} alt=''/>
