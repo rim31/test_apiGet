@@ -52,29 +52,30 @@ export default class Cards extends React.Component {
 
       <div className="sectionHeros">
     		<div className="container">
-                  <a href="/">home</a>
-                <p>Photo de super heros</p>
-                <img className='imageGrid' src={this.state.myJson[0].thumbnail.path + '.' + this.state.myJson[0].thumbnail.extension} alt=''/>
-                <h2>{this.state.myJson[0].name}</h2>
-                <h3>comics</h3>
-                <div>
-                {
-                  this.state.myJson[0].comics.items.map((dynamicData, key) =>
-                  <div key={key}>
-                      {dynamicData.name}
-                  </div>)
-                }
-                </div>
-                <h3>series</h3>
-                <div>
-                {
-                  this.state.myJson[0].series.items.map((dynamicData, key) =>
-                  <div key={key}>
-                      {dynamicData.name}
-                  </div>)
-                }
-                </div>
-    		</div>
+          <div>
+            <a href="/">Home</a>
+          </div>
+            <img className='imageGrid' src={this.state.myJson[0].thumbnail.path + '.' + this.state.myJson[0].thumbnail.extension} alt=''/>
+            <h2>{this.state.myJson[0].name}</h2>
+            <h3>comics</h3>
+            <ul className="myList">
+            {
+              this.state.myJson[0].comics.items.map((dynamicData, key) =>
+              <li key={key} className="myListLi">
+                  {dynamicData.name}
+              </li>)
+            }
+            </ul>
+            <h3>series</h3>
+            <ul className="myList">
+            {
+              this.state.myJson[0].series.items.map((dynamicData, key) =>
+              <li key={key} className="myListLi">
+                  {dynamicData.name}
+              </li>)
+            }
+            </ul>
+        </div>
     	</div>
     );
   }
