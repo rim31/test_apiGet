@@ -21,38 +21,11 @@ class App extends Component {
     };
   }
 
-
-//function click on image of super heros then display detail
-handleSelect(selectedKey) {
-  this.setState({activeKey: selectedKey})
-  // console.log(selectedKey);
-  const self = this;
-  self.interval = setInterval(function() {
-    self.setState({
-      now: new Date(),
-    });
-  }, 1000);
-   // console.log(this.state.now)
-   var myTimestamp = new Date().getTime()
-   var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
-   var crypto = require('crypto');
-   var myHash = crypto.createHash('md5').update(myData).digest("hex");
-   var url = 'http://gateway.marvel.com/v1/public/characters/'+selectedKey+'?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-   // console.log(url)
-   fetch(url)
-   .then((Response)=>Response.json())
-   .then((myResponse) => {
-     // console.log('responsedata : '+myResponse.data.results)
-     this.setState({
-       myHeros:myResponse.data.results[0]
-     })
-   });
-   if (this.state.myHeros) {
-    // console.log(this.state.myHeros);
-    alert(this.state.myHeros.id + ' ' + this.state.myHeros.name + '\n comics dispos : ' + this.state.myHeros.comics.available );
-    return <Cards myHeros={this.state.myHeros}/>;
-  };
-}
+  //function click on image of super heros then display detail
+  handleSelect(selectedKey) {
+    this.setState({activeKey: selectedKey})
+    window.location = '/cards/'+selectedKey;
+  }
 
   // componentDidMount() is invoked immediately after a component is mounted. Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
   componentDidMount() {
@@ -62,22 +35,22 @@ handleSelect(selectedKey) {
         now: new Date(),
       });
     }, 1000);
-     // console.log(this.state.now)
+
      var myTimestamp = new Date().getTime()
      var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
      var crypto = require('crypto');
      var myHash = crypto.createHash('md5').update(myData).digest("hex");
      var url = 'http://gateway.marvel.com/v1/public/characters?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-     // console.log(url)
+
      fetch(url)
      .then((Response)=>Response.json())
      .then((myResponse) => {
-       // console.log(myResponse.data.results)
        this.setState({
          data:myResponse.data.results
        })
      });
   }
+
   render() {
     return (
       <div className="App">

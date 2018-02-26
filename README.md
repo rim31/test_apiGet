@@ -18,5 +18,10 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ### Difficulties
 
+- API --> postman
 - Router --> href to component in an other page
 - state / props  <Components data={this.state.data}> ==> this.state.props
+
+### Solution
+
+- route localhost:3000/cards/{id} , parse id et get API with the id
