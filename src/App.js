@@ -40,7 +40,7 @@ handleSelect(selectedKey) {
    var crypto = require('crypto');
    var myHash = crypto.createHash('md5').update(myData).digest("hex");
    var url = 'http://gateway.marvel.com/v1/public/characters/'+selectedKey+'?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-   // console.log(url)
+   console.log(url)
    fetch(url)
    .then((Response)=>Response.json())
    .then((myResponse) => {
@@ -110,7 +110,7 @@ handleSelect(selectedKey) {
     return (
       <div className="App">
       <Main />
-        <Cards allCharacters={this.state.allCharacters}/>
+        {/*<Cards allCharacters={this.state.allCharacters}/>*/}
         <Grid allCharacters={this.state.allCharacters}/>
         <div className="flex-container">
           {

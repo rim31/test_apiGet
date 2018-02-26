@@ -7,13 +7,12 @@ export default class Grid extends React.Component {
       activeKey : 1,
       data : [],
       now : '',
-      allCharacters : [],
-      API_PUBLIC: '298bab46381a6daaaee19aa5c8cafea5',
-      API_PRIVATE: 'b0223681fced28de0fe97e6b9cd091dd36a5b71d',
-    };
+      myHeros : [],
+      };
   }
   componentDidMount() {
-      console.log(this.state.allCharacters)
+      console.log(this.state.myHeros)
+
   }
   render() {
     return (
@@ -24,10 +23,10 @@ export default class Grid extends React.Component {
                 <p>Photo de super heros</p>
                 <div>
                 {
-                  this.state.allCharacters.map((dynamicData, key) =>
-                  <div key={key}>
-                      {dynamicData.id}
-                  </div>)
+                  // this.state.myHeros.comics.items.map((dynamicData, key) =>
+                  // <div key={key}>
+                  //     {dynamicData.items}
+                  // </div>)
                 }
                 </div>
     		</div>
