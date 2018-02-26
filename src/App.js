@@ -62,9 +62,7 @@ class App extends Component {
             <div className="herosCard" key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
                 <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension} alt=''/>
                 <div>
-                <a href="/cards">
                   <p>{dynamicData.name}</p>
-                </a>
                 </div>
             </div>)
           }
