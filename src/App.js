@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
     this.state = {
-      activeKey : 1,
+      activeKey : '',
       data : [],
       now : '',
       allCharacters : [],
@@ -112,7 +112,7 @@ handleSelect(selectedKey) {
         <div className="flex-container">
           {
             this.state.data.map((dynamicData, key) =>
-            <div key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
+            <div className="herosCard" key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
                 <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension} alt=''/>
                 <div>
                   <p>{dynamicData.name}</p>
