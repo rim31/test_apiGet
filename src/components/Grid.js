@@ -20,8 +20,8 @@ export default class Grid extends React.Component {
 
       <div className="sectionHeros">
     		<div className="container">
-                <img src="https://cdn.intra.42.fr/users/medium_norminet.jpg"/>
-                <p>Photo du super heros</p>
+                {/*}<img src="https://cdn.intra.42.fr/users/oseng.jpg"/>*/}
+                <p>Photo de super heros</p>
                 <div>
                 {
                   this.state.allCharacters.map((dynamicData, key) =>
@@ -31,17 +31,6 @@ export default class Grid extends React.Component {
                 }
                 </div>
     		</div>
-        {/*<div className="flex-container">
-        {
-          this.state.allCharacters.map((dynamicData, key) =>
-          <div key={key} id={dynamicData.id} onClick={() => {this.handleSelect(dynamicData.id)}}>
-              <img className="imageGrid" src={dynamicData.thumbnail.path + '.' + dynamicData.thumbnail.extension}/>
-              <div>
-                <span>{dynamicData.name}</span>
-              </div>
-          </div>)
-        }
-      </div>*/}
     	</div>
     );
   }
