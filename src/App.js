@@ -4,7 +4,6 @@ import Cards from './components/Cards.js';
 import Grid from './components/Grid.js';
 import Main from './components/Main.js';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import ApiGet from './components/ApiGet.js';
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ handleSelect(selectedKey) {
    var crypto = require('crypto');
    var myHash = crypto.createHash('md5').update(myData).digest("hex");
    var url = 'http://gateway.marvel.com/v1/public/characters/'+selectedKey+'?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-   console.log(url)
+   // console.log(url)
    fetch(url)
    .then((Response)=>Response.json())
    .then((myResponse) => {
@@ -54,32 +53,6 @@ handleSelect(selectedKey) {
     return <Cards myHeros={this.state.myHeros}/>;
   };
 }
-
-  getAllCharacters() {
-    const self = this;
-    self.interval = setInterval(function() {
-      self.setState({
-        now: new Date(),
-      });
-    }, 1000);
-     // console.log(this.state.now)
-     var myTimestamp = new Date().getTime()
-     var myData = myTimestamp+this.state.API_PRIVATE+this.state.API_PUBLIC
-     var crypto = require('crypto');
-     var myHash = crypto.createHash('md5').update(myData).digest("hex");
-     var url = 'http://gateway.marvel.com/v1/public/characters?apikey='+this.state.API_PUBLIC+'&ts='+myTimestamp+'&hash='+myHash;
-     // console.log(url)
-     fetch(url)
-     .then((Response)=>Response.json())
-     .then((myResponse) => {
-       // console.log(myResponse.data.results)
-       this.setState({
-         allCharacters:myResponse.data.results
-       })
-     });
-     // console.log(this.state.allCharacters)
-     return(url);
-   }
 
   // componentDidMount() is invoked immediately after a component is mounted. Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
   componentDidMount() {
@@ -109,7 +82,6 @@ handleSelect(selectedKey) {
     return (
       <div className="App">
       <Main />
-        {/*<Cards allCharacters={this.state.allCharacters}/>*/}
         <Grid allCharacters={this.state.allCharacters}/>
         <div className="flex-container">
           {
