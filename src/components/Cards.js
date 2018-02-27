@@ -1,4 +1,20 @@
 import React from 'react';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import Chip from 'material-ui/Chip';
+import {List, ListItem} from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+
+const styles = {
+  chip: {
+    margin: 4,
+    width:'auto',
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+};
 
 export default class Cards extends React.Component {
   constructor(props) {
@@ -50,33 +66,56 @@ export default class Cards extends React.Component {
   render() {
     return (
 
+    <MuiThemeProvider>
+
       <div className="sectionHeros">
     		<div className="container">
           <div>
             <a href="/">Home</a>
           </div>
-            <img className='imageGrid' src={this.state.myJson[0].thumbnail.path + '.' + this.state.myJson[0].thumbnail.extension} alt=''/>
-            <h2>{this.state.myJson[0].name}</h2>
-            <h3>comics</h3>
-            <ul className="myList">
-            {
-              this.state.myJson[0].comics.items.map((dynamicData, key) =>
-              <li key={key} className="myListLi">
-                  {dynamicData.name}
-              </li>)
-            }
-            </ul>
-            <h3>series</h3>
-            <ul className="myList">
-            {
-              this.state.myJson[0].series.items.map((dynamicData, key) =>
-              <li key={key} className="myListLi">
-                  {dynamicData.name}
-              </li>)
-            }
-            </ul>
+            <Card>
+               <CardHeader
+                 title="Ze Super Heros"
+                 subtitle="os"
+                 avatar="https://cdn.intra.42.fr/users/oseng.jpg"
+               />
+               <CardMedia
+                 overlay={<CardTitle title={this.state.myJson[0].name} subtitle={this.state.myJson[0].id} />}
+               >
+                 <img src={this.state.myJson[0].thumbnail.path + '.' + this.state.myJson[0].thumbnail.extension} alt="" />
+               </CardMedia>
+               <CardTitle title={this.state.myJson[0].name} subtitle={this.state.myJson[0].id} />
+               <CardText>
+                  {this.state.myJson[0].description}
+                  <h2>comics</h2>
+                  <List>
+                    { this.state.myJson[0].comics.items.map((dynamicData, key) =>
+                      <ListItem key={key} primaryText={dynamicData.name}/>
+                    )}
+                  </List>
+                   <h2>series</h2>
+                   <List>
+                     { this.state.myJson[0].series.items.map((dynamicData, key) =>
+                       <ListItem key={key} primaryText={dynamicData.name}/>
+                     )}
+                   </List>
+
+               </CardText>
+               <CardActions>
+               { this.state.myJson[0].urls.map((dynamicData, key) =>
+                 <Chip key={key} style={styles.chip} >{dynamicData.url}</Chip>
+               )}
+               </CardActions>
+             </Card>
+
+
+
+
         </div>
     	</div>
+
+  </MuiThemeProvider>
+
     );
   }
 }

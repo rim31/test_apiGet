@@ -49,11 +49,13 @@
   font-size: 30px;
 }
 
-.myList {
+.collectionHeader {
 
 }
 
-.myListLi {
+.collectionItem {
+  width: 50vw;
+  list-style-type: none;
   margin: 2px;
   background-color: #f1f2f6;
 }

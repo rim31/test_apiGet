@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Cards from './components/Cards.js';
 import Grid from './components/Grid.js';
 import Main from './components/Main.js';
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 class App extends Component {
   constructor(props) {
