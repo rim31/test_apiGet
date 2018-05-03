@@ -29,3 +29,9 @@ You can find the most recent version of this guide [here](https://github.com/fac
 ### Solution
 
 - route localhost:3000/cards/{id} , parse id et get API with the id
+
+
+
+![alt text](https://github.com/rim31/theorem_bernoulli/blob/master/1.png)
+
+![alt text](https://github.com/rim31/theorem_bernoulli/blob/master/2.png)
